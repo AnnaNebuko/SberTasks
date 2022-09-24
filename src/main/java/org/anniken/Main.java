@@ -6,13 +6,25 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         List<City> cities =
-            readCityFromCSV("C:\\Users\\user\\Downloads\\_данные_\\city_ru.csv");
-        cities.forEach(System.out::println);
+            readCityFromCSV("./src/main/resources/city_ru.csv");
+
+        //Sort by name
+        cities.stream()
+            .sorted(Comparator.comparing(city -> city.getName().toLowerCase()))
+            .forEach(System.out::println);
+
+
+        //sort by 2 parameters
+        cities.stream()
+            .sorted(Comparator.comparing(City::getDistrict).thenComparing(City::getName))
+            .forEach(System.out::println);
+
     }
 
     private static List<City> readCityFromCSV(String fileName) throws IOException {

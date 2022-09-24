@@ -20,12 +20,19 @@ public class City {
     @Override
     public String toString() {
         return "City{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
+            "name='" + name + '\'' +
             ", region='" + region + '\'' +
             ", district='" + district + '\'' +
             ", population=" + population +
             ", foundation='" + foundation + '\'' +
             '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDistrict() {
+        return district;
     }
 }
