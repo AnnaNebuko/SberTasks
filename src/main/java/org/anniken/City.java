@@ -35,4 +35,12 @@ public class City {
     public String getDistrict() {
         return district;
     }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public int getId() {
+        return id;
+    }
 }

@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class Main {
 
         //Sort by name
         cities.stream()
-            .sorted(Comparator.comparing(city -> city.getName().toLowerCase()))
+            .sorted((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()))
             .forEach(System.out::println);
 
 
@@ -25,6 +27,34 @@ public class Main {
             .sorted(Comparator.comparing(City::getDistrict).thenComparing(City::getName))
             .forEach(System.out::println);
 
+        //index of maximum element and amount of people there
+        cities.stream()
+            .max(Comparator.comparing(City::getPopulation)).ifPresent(
+                c -> System.out.println("[" + (c.getId() - 1) + "] = " + c.getPopulation())
+            );
+
+        findBySimpleBruteForce(cities);
+    }
+
+    private static void findBySimpleBruteForce(List<City> cities) {
+        //Array of Cities
+        City[] array = new City[cities.size()];
+        cities.toArray(array);
+
+        //first == current
+        City current = array[0];
+
+        //index to print
+        int index = 0;
+
+        //Starting from second one
+        for (int i = 1; i < array.length; i++) {
+            if (array[i].getPopulation() > current.getPopulation()) {
+                current = array[i];
+                index = i;
+            }
+        }
+        System.out.println(MessageFormat.format("[{0}] = {1}", index, array[index].getPopulation()));
     }
 
     private static List<City> readCityFromCSV(String fileName) throws IOException {
