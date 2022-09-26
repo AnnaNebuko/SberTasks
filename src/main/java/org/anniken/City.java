@@ -43,4 +43,8 @@ public class City {
     public int getId() {
         return id;
     }
+
+    public String getRegion() {
+        return region;
+    }
 }
